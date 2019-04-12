@@ -1,6 +1,9 @@
 class EventVenuesController < ApplicationController
   def create
-    # TODO
+    @ev = EventVenue.new(params)
+    if @ev.save
+      render json: @ev
+    end
   end
 
   def update
@@ -8,6 +11,9 @@ class EventVenuesController < ApplicationController
   end
 
   def destroy
-    # TODO
+    @ev = EventVenue.find(params[:id])
+    if @ev.destroy
+      render json: "Deleted"
+    end
   end
 end

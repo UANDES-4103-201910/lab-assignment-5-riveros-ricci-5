@@ -5,18 +5,33 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  def create
-    @user = User.new(params.fetch(:user, {}))
-    render json: @user
+  def new
+    @user = User.new
+  end
+
+  def create 
+    @user = User.new(params[:user])
+    if @user.save
+      render json: @user
+    else
+      render json: @user.errors
+    end
   end
 
   def update
-    # TODO
+    @user = User.find(params[:id])
+    if @user.update(params)
+        render json: @user
+    end
+
   end
 
   def destroy
-    @user.destroy
-    render js: "alert('Hello Rails');"
+    @user = User.find(params[:id])
+    if @user.destroy
+      render json: "Deleted"
+    end
+
   end
 
   def user_with_most_tickets
