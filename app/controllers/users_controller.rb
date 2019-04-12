@@ -1,14 +1,37 @@
 class UsersController < ApplicationController
-  def create
-    # TODO
+  skip_before_action :verify_authenticity_token
+  def show
+    @user = User.find(params[:id])
+    render json: @user
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create 
+    @user = User.new(params[:user])
+    if @user.save
+      render json: @user
+    else
+      render json: @user.errors
+    end
   end
 
   def update
-    # TODO
+    @user = User.find(params[:id])
+    if @user.update(params)
+      render json: @user
+    end
+
   end
 
   def destroy
-    # TODO
+    @user = User.find(params[:id])
+    if @user.destroy
+      render json: "Deleted"
+    end
+
   end
 
   def user_with_most_tickets
