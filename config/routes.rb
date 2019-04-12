@@ -5,7 +5,11 @@ Rails.application.routes.draw do
       get :user_with_most_tickets
     end
   end
-  resources :events, only: %i[create destroy update]
+  resources :events, only: %i[create destroy update] do
+    collection do
+      get :upcoming_events
+    end
+  end
   resources :event_venues, only: %i[create destroy update]
   resources :tickets, only: %i[create destroy update]
   resources :ticket_types
