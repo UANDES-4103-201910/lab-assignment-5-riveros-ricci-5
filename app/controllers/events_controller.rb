@@ -12,6 +12,7 @@ class EventsController < ApplicationController
   end
 
   def upcoming_events
-    # TODO
+    render json: Event.where((:start_date.month-DateTime.now) <= 3).order(:start_date)
   end
+
 end
